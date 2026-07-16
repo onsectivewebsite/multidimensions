@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { services, individualLessons } from "@/lib/data";
+import { services, individualLessons, accents } from "@/lib/data";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
 import Icon from "@/components/Icon";
@@ -35,7 +35,7 @@ export default function ServicesPage() {
           {services.map((s, i) => (
             <Reveal key={s.id} delay={i * 0.05}>
               <div className="card card-hover group h-full p-7">
-                <span className="grid h-14 w-14 place-items-center rounded-2xl bg-sign-700 text-white transition-transform group-hover:scale-105">
+                <span className={`grid h-14 w-14 place-items-center rounded-2xl text-white transition-transform group-hover:scale-105 ${accents[i % accents.length].solid}`}>
                   <Icon name={s.icon} className="h-7 w-7" />
                 </span>
                 <h3 className="mt-5 font-display text-xl font-semibold text-ink-900">
@@ -89,7 +89,7 @@ export default function ServicesPage() {
             {steps.map((s, i) => (
               <Reveal key={s.n} delay={i * 0.07}>
                 <div className="card h-full p-6">
-                  <span className="hud-num font-display text-4xl font-bold text-sign-700/40">
+                  <span className={`hud-num font-display text-4xl font-extrabold ${accents[i % accents.length].text}`}>
                     {s.n}
                   </span>
                   <h3 className="mt-2 font-display text-lg font-semibold text-ink-900">

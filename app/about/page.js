@@ -2,6 +2,7 @@ import Image from "next/image";
 import { features, stats } from "@/lib/data";
 import PageHero from "@/components/PageHero";
 import Reveal from "@/components/Reveal";
+import CountUp from "@/components/CountUp";
 import Icon from "@/components/Icon";
 import CTABand from "@/components/CTABand";
 
@@ -97,7 +98,10 @@ export default function AboutPage() {
         <div className="container-x grid grid-cols-2 divide-x divide-ink-100 lg:grid-cols-4">
           {stats.map((s, i) => (
             <Reveal key={s.label} delay={i * 0.05} className="px-4 text-center">
-              <p className="hud-num font-display text-4xl font-bold text-sign-700">{s.value}</p>
+              <CountUp
+                value={s.value}
+                className="hud-num block font-display text-4xl font-bold text-sign-700"
+              />
               <p className="mt-1 font-mono text-[11px] uppercase tracking-wider text-ink-500">
                 {s.label}
               </p>

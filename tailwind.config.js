@@ -8,38 +8,39 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        // White & blue driving-school palette
+        // Tokens are driven by CSS variables so the theme can switch at runtime.
+        // Values live in globals.css (:root + [data-theme] presets).
         paper: {
-          50: "#FFFFFF",
-          100: "#F2F7FE",
-          200: "#E4EEFB",
+          50: "rgb(var(--c-paper-50) / <alpha-value>)",
+          100: "rgb(var(--c-paper-100) / <alpha-value>)",
+          200: "rgb(var(--c-paper-200) / <alpha-value>)",
         },
         ink: {
-          900: "#0A1B33",
-          800: "#12294A",
-          700: "#22364F",
-          600: "#47597A",
-          500: "#6E7E9B",
-          200: "#D5E2F2",
-          100: "#E8F0FA",
+          900: "rgb(var(--c-ink-900) / <alpha-value>)",
+          800: "rgb(var(--c-ink-800) / <alpha-value>)",
+          700: "rgb(var(--c-ink-700) / <alpha-value>)",
+          600: "rgb(var(--c-ink-600) / <alpha-value>)",
+          500: "rgb(var(--c-ink-500) / <alpha-value>)",
+          200: "rgb(var(--c-ink-200) / <alpha-value>)",
+          100: "rgb(var(--c-ink-100) / <alpha-value>)",
         },
-        // "sign" = primary blue (kept name so existing classes remap)
+        // "sign" = primary brand colour
         sign: {
-          900: "#0A2A66",
-          800: "#123A86",
-          700: "#1D4ED8",
-          600: "#2563EB",
-          500: "#3B82F6",
+          900: "rgb(var(--c-sign-900) / <alpha-value>)",
+          800: "rgb(var(--c-sign-800) / <alpha-value>)",
+          700: "rgb(var(--c-sign-700) / <alpha-value>)",
+          600: "rgb(var(--c-sign-600) / <alpha-value>)",
+          500: "rgb(var(--c-sign-500) / <alpha-value>)",
         },
-        // "road" = bright sky-blue accent
+        // "road" = creative accent pop
         road: {
-          500: "#0EA5E9",
-          400: "#38BDF8",
-          300: "#7DD3FC",
+          500: "rgb(var(--c-road-500) / <alpha-value>)",
+          400: "rgb(var(--c-road-400) / <alpha-value>)",
+          300: "rgb(var(--c-road-300) / <alpha-value>)",
         },
         amber: {
-          500: "#F59E0B",
-          400: "#FBBF24",
+          500: "rgb(var(--c-amber-500) / <alpha-value>)",
+          400: "rgb(var(--c-amber-400) / <alpha-value>)",
         },
         stop: {
           600: "#DC2626",
@@ -70,10 +71,31 @@ module.exports = {
           "0%": { backgroundPosition: "0 0" },
           "100%": { backgroundPosition: "-72px 0" },
         },
+        kenburns: {
+          "0%": { transform: "scale(1)" },
+          "100%": { transform: "scale(1.08)" },
+        },
+        shine: {
+          "0%": { transform: "translateX(-120%)" },
+          "60%, 100%": { transform: "translateX(220%)" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        blob: {
+          "0%, 100%": { transform: "translate(0,0) scale(1)" },
+          "33%": { transform: "translate(24px,-18px) scale(1.1)" },
+          "66%": { transform: "translate(-18px,14px) scale(0.95)" },
+        },
       },
       animation: {
         float: "float 6s ease-in-out infinite",
         lane: "lane 1.1s linear infinite",
+        kenburns: "kenburns 14s ease-out forwards",
+        marquee: "marquee 26s linear infinite",
+        shine: "shine 2.6s ease-in-out infinite",
+        blob: "blob 12s ease-in-out infinite",
       },
     },
   },

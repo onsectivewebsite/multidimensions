@@ -9,19 +9,25 @@ import {
   instructors,
   photos,
   galleryImages,
+  accents,
 } from "@/lib/data";
 import Reveal from "@/components/Reveal";
+import CountUp from "@/components/CountUp";
 import Icon from "@/components/Icon";
 import SectionHeading from "@/components/SectionHeading";
 import PackageCard from "@/components/PackageCard";
 import PackageRecommender from "@/components/PackageRecommender";
 import CTABand from "@/components/CTABand";
+import Marquee from "@/components/Marquee";
 
 export default function HomePage() {
   return (
     <>
       {/* ── HERO ─────────────────────────────────────────── */}
       <section className="relative overflow-hidden bg-white">
+        {/* animated gradient blobs */}
+        <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 animate-blob rounded-full bg-sign-500/20 blur-3xl" />
+        <div className="pointer-events-none absolute right-0 top-40 h-72 w-72 animate-blob rounded-full bg-road-400/25 blur-3xl [animation-delay:3s]" />
         <div className="container-x relative grid items-center gap-12 py-14 lg:grid-cols-2 lg:py-20">
           <div>
             <Reveal>
@@ -31,9 +37,9 @@ export default function HomePage() {
               </span>
             </Reveal>
             <Reveal delay={0.05}>
-              <h1 className="mt-5 font-display text-4xl font-extrabold leading-[1.05] text-ink-900 sm:text-5xl lg:text-[3.4rem]">
+              <h1 className="mt-5 font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-ink-900 sm:text-6xl lg:text-7xl">
                 Learn to drive with{" "}
-                <span className="text-sign-700">confidence.</span>
+                <span className="text-gradient">confidence.</span>
               </h1>
             </Reveal>
             <Reveal delay={0.1}>
@@ -87,7 +93,7 @@ export default function HomePage() {
                 width={1200}
                 height={1300}
                 priority
-                className="h-[420px] w-full object-cover sm:h-[520px]"
+                className="kenburns h-[420px] w-full object-cover sm:h-[520px]"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-sign-900/50 to-transparent" />
             </div>
@@ -118,15 +124,19 @@ export default function HomePage() {
           <div className="container-x grid grid-cols-2 divide-x divide-ink-200 lg:grid-cols-4">
             {stats.map((s, i) => (
               <Reveal key={s.label} delay={i * 0.05} className="px-4 py-8 text-center">
-                <p className="hud-num font-display text-3xl font-extrabold text-sign-700 sm:text-4xl">
-                  {s.value}
-                </p>
+                <CountUp
+                  value={s.value}
+                  className={`hud-num block font-display text-3xl font-extrabold sm:text-4xl ${accents[i % accents.length].text}`}
+                />
                 <p className="mt-1 text-[13px] font-medium text-ink-500">{s.label}</p>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
+
+      {/* ── FLASHY MARQUEE ───────────────────────────────── */}
+      <Marquee />
 
       {/* ── WHY US (image + checklist) ───────────────────── */}
       <section className="container-x py-16 sm:py-24">
@@ -161,7 +171,7 @@ export default function HomePage() {
               {features.map((f, i) => (
                 <Reveal key={f.title} delay={i * 0.06}>
                   <div className="flex gap-3">
-                    <span className="grid h-11 w-11 shrink-0 place-items-center rounded-xl bg-sign-700/10 text-sign-700">
+                    <span className={`grid h-11 w-11 shrink-0 place-items-center rounded-xl ${accents[i % accents.length].tile}`}>
                       <Icon name={f.icon} className="h-6 w-6" />
                     </span>
                     <div>
@@ -185,7 +195,7 @@ export default function HomePage() {
           alt="Open road at sunset in the Greater Toronto Area"
           width={1600}
           height={900}
-          className="h-[340px] w-full object-cover sm:h-[420px]"
+          className="kenburns h-[340px] w-full object-cover sm:h-[420px]"
         />
         <div className="absolute inset-0 bg-sign-900/70" />
         <div className="container-x absolute inset-0 flex flex-col items-start justify-center">
@@ -219,7 +229,7 @@ export default function HomePage() {
           {services.map((s, i) => (
             <Reveal key={s.id} delay={i * 0.05}>
               <div className="card card-hover group flex h-full items-start gap-4 p-6">
-                <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-sign-700 text-white transition-transform group-hover:scale-105">
+                <span className={`grid h-12 w-12 shrink-0 place-items-center rounded-xl text-white transition-transform group-hover:scale-105 ${accents[i % accents.length].solid}`}>
                   <Icon name={s.icon} className="h-6 w-6" />
                 </span>
                 <div>
@@ -255,9 +265,9 @@ export default function HomePage() {
                   </div>
                   <div className="p-5">
                     <h3 className="font-display text-lg font-bold text-ink-900">{ins.name}</h3>
-                    <p className="text-sm font-medium text-sign-700">{ins.role}</p>
+                    <p className={`text-sm font-semibold ${accents[i % accents.length].text}`}>{ins.role}</p>
                     <p className="mt-2 flex items-start gap-1.5 text-sm text-ink-600">
-                      <Icon name="check" className="mt-0.5 h-4 w-4 shrink-0 text-sign-600" />
+                      <Icon name="check" className={`mt-0.5 h-4 w-4 shrink-0 ${accents[i % accents.length].text}`} />
                       {ins.tag}
                     </p>
                   </div>
