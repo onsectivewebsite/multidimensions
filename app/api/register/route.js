@@ -69,7 +69,16 @@ export async function POST(req) {
 
     const ref = reference();
 
-    // TODO: persist + notify (email/CRM/DB).
+    // SECURITY: payment is NOT trusted here. This endpoint records an enrolment
+    // request only — it must never mark an order as *paid* on the client's word.
+    // Before going live and accepting real money you MUST verify payment
+    // server-side: capture/verify the PayPal order via the PayPal REST API using
+    // your secret (PAYPAL_CLIENT_ID + PAYPAL_CLIENT_SECRET) and confirm the amount
+    // matches `total`; treat e-transfer as "pending" until you reconcile it.
+    const paymentStatus =
+      payment?.method === "paypal" ? "unverified" : "pending_etransfer";
+
+    // TODO: persist + notify (email/CRM/DB) and verify payment before fulfilment.
     console.log("[register] new enrolment:", {
       ref,
       name: `${firstName} ${lastName}`,
@@ -81,6 +90,7 @@ export async function POST(req) {
       coupon: coupon || null,
       pricing: { base, discount, subtotal, tax, total },
       method: payment?.method || "etransfer",
+      paymentStatus,
     });
 
     return Response.json({ ok: true, reference: ref, total });

@@ -76,9 +76,41 @@ function ruleBasedReply(userText) {
   return `Happy to help! I can tell you about our packages (Bronze $600 to Platinum $1050), road-test cars, instructors, insurance discounts and booking. You can also call ${business.phones[1]} or use our Smart Package Finder on the Packages page. What would you like to know?`;
 }
 
+// ── Basic per-IP rate limit (best-effort, in-memory). Caps cost/DoS abuse.
+const MAX_PER_MINUTE = 20;
+const hits = new Map();
+function rateLimited(ip) {
+  const now = Date.now();
+  const windowStart = now - 60_000;
+  const times = (hits.get(ip) || []).filter((t) => t > windowStart);
+  times.push(now);
+  hits.set(ip, times);
+  if (hits.size > 5000) hits.clear(); // guard against unbounded growth
+  return times.length > MAX_PER_MINUTE;
+}
+
+// Keep only valid roles, the last few turns, and bounded content lengths.
+function sanitizeMessages(input) {
+  if (!Array.isArray(input)) return [];
+  return input
+    .filter((m) => m && (m.role === "user" || m.role === "assistant"))
+    .slice(-12)
+    .map((m) => ({ role: m.role, content: String(m.content ?? "").slice(0, 2000) }));
+}
+
 export async function POST(req) {
   try {
-    const { messages = [] } = await req.json();
+    const ip =
+      req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || "unknown";
+    if (rateLimited(ip)) {
+      return Response.json(
+        { reply: "You're sending messages too quickly — please wait a moment and try again." },
+        { status: 429 }
+      );
+    }
+
+    const body = await req.json();
+    const messages = sanitizeMessages(body?.messages);
     const lastUser =
       [...messages].reverse().find((m) => m.role === "user")?.content ?? "";
 
@@ -97,9 +129,7 @@ export async function POST(req) {
             model: "claude-haiku-4-5-20251001",
             max_tokens: 400,
             system: `You are Maya, the friendly virtual assistant for ${business.name}. Answer only using the information below. Be concise, warm and helpful. Always guide the user toward booking (Contact page or phone) when relevant. If asked something outside this scope, politely redirect to calling the school.\n\n${knowledgeBase()}`,
-            messages: messages
-              .filter((m) => m.role === "user" || m.role === "assistant")
-              .map((m) => ({ role: m.role, content: m.content })),
+            messages,
           }),
         });
         if (res.ok) {
