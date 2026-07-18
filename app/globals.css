@@ -20,15 +20,15 @@
   --c-amber-500: 245 158 11;
   --c-amber-400: 251 191 36;
 
-  /* Default creative theme — Ink & Lime */
-  --c-sign-900: 9 9 11;
-  --c-sign-800: 24 24 27;
-  --c-sign-700: 24 24 27;
-  --c-sign-600: 39 39 42;
-  --c-sign-500: 63 63 70;
-  --c-road-500: 101 163 13;
-  --c-road-400: 132 204 22;
-  --c-road-300: 163 230 53;
+  /* Default theme — brand colours from the logo (cyan/navy + yellow) */
+  --c-sign-900: 12 42 61;
+  --c-sign-800: 14 58 84;
+  --c-sign-700: 12 110 158;
+  --c-sign-600: 19 145 201;
+  --c-sign-500: 41 171 226;
+  --c-road-500: 245 166 35;
+  --c-road-400: 251 176 59;
+  --c-road-300: 255 203 92;
 }
 
 /* ── Creative theme presets (swap via data-theme on <html>) ── */
@@ -71,6 +71,16 @@
   --c-road-500: 245 158 11;
   --c-road-400: 251 191 36;
   --c-road-300: 252 211 77;
+}
+[data-theme="ink"] {
+  --c-sign-900: 9 9 11;
+  --c-sign-800: 24 24 27;
+  --c-sign-700: 24 24 27;
+  --c-sign-600: 39 39 42;
+  --c-sign-500: 63 63 70;
+  --c-road-500: 101 163 13;
+  --c-road-400: 132 204 22;
+  --c-road-300: 163 230 53;
 }
 [data-theme="indigo"] {
   --c-sign-900: 30 27 75;
@@ -171,9 +181,23 @@
     @apply text-ink-500 transition-colors hover:text-sign-700;
   }
 
-  /* Flashy gradient text (kept within readable brand tones) */
+  /* Brand gradient text (cyan tones, readable on white) */
   .text-gradient {
     @apply bg-gradient-to-br from-sign-700 via-sign-600 to-sign-500 bg-clip-text text-transparent;
+  }
+
+  /* Colour-cycling animated bar (top announcement) */
+  .cycle-bar {
+    background: linear-gradient(
+      90deg,
+      #0c6e9e, #1391c9, #29abe2, #f5a623, #fbb03b, #0c6e9e
+    );
+    background-size: 300% 100%;
+    animation: cyclebar 12s linear infinite;
+  }
+  @keyframes cyclebar {
+    0% { background-position: 0% 50%; }
+    100% { background-position: 300% 50%; }
   }
 
   /* Edge fade mask for marquees */

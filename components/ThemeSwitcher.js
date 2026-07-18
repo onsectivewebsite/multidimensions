@@ -6,7 +6,8 @@ import Icon from "./Icon";
 
 // Live theme presets — the swatch shows [primary, accent].
 const THEMES = [
-  { id: "default", name: "Ink & Lime", colors: ["#18181B", "#84CC16"] },
+  { id: "default", name: "Brand · Cyan & Yellow", colors: ["#0C6E9E", "#FBB03B"] },
+  { id: "ink", name: "Ink & Lime", colors: ["#18181B", "#84CC16"] },
   { id: "indigo", name: "Indigo & Lime", colors: ["#4338CA", "#84CC16"] },
   { id: "magenta", name: "Magenta & Cyan", colors: ["#A21CAF", "#06B6D4"] },
   { id: "sunset", name: "Rose & Violet", colors: ["#E11D48", "#7C3AED"] },

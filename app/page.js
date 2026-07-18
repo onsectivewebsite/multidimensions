@@ -19,6 +19,7 @@ import PackageCard from "@/components/PackageCard";
 import PackageRecommender from "@/components/PackageRecommender";
 import CTABand from "@/components/CTABand";
 import Marquee from "@/components/Marquee";
+import HeroCarousel from "@/components/HeroCarousel";
 
 export default function HomePage() {
   return (
@@ -28,29 +29,21 @@ export default function HomePage() {
         {/* animated gradient blobs */}
         <div className="pointer-events-none absolute -left-24 -top-24 h-80 w-80 animate-blob rounded-full bg-sign-500/20 blur-3xl" />
         <div className="pointer-events-none absolute right-0 top-40 h-72 w-72 animate-blob rounded-full bg-road-400/25 blur-3xl [animation-delay:3s]" />
-        <div className="container-x relative grid items-center gap-12 py-14 lg:grid-cols-2 lg:py-20">
-          <div>
-            <Reveal>
-              <span className="eyebrow">
-                <Icon name="badge" className="h-3.5 w-3.5" />
-                MTO-Approved BDE Provider · Brampton & GTA
-              </span>
-            </Reveal>
-            <Reveal delay={0.05}>
-              <h1 className="mt-5 font-display text-5xl font-extrabold leading-[0.95] tracking-tight text-ink-900 sm:text-6xl lg:text-7xl">
-                Learn to drive with{" "}
-                <span className="text-gradient">confidence.</span>
-              </h1>
-            </Reveal>
-            <Reveal delay={0.1}>
-              <p className="mt-5 max-w-xl text-lg leading-relaxed text-ink-600">
-                Premium, affordable driver education across Brampton and the Greater
-                Toronto Area. Friendly, MTO-certified instructors, flexible online
-                theory and real in-car lessons — all the way to your road test.
-              </p>
-            </Reveal>
-            <Reveal delay={0.15}>
-              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+        <div className="container-x relative py-8 sm:py-12">
+          <h1 className="sr-only">
+            Multi-Dimensions Driving School — MTO-approved driver education in
+            Brampton and the Greater Toronto Area
+          </h1>
+
+          {/* Flyer carousel */}
+          <Reveal>
+            <HeroCarousel />
+          </Reveal>
+
+          {/* CTA + trust row */}
+          <Reveal delay={0.1}>
+            <div className="mt-8 flex flex-col items-center justify-between gap-6 sm:flex-row">
+              <div className="flex flex-col gap-3 sm:flex-row">
                 <Link href="/register" className="btn-primary text-base">
                   Register Now
                   <Icon name="arrow" className="h-4 w-4" />
@@ -60,9 +53,7 @@ export default function HomePage() {
                   View Packages
                 </Link>
               </div>
-            </Reveal>
-            <Reveal delay={0.2}>
-              <div className="mt-8 flex items-center gap-4">
+              <div className="flex items-center gap-4">
                 <div className="flex -space-x-3">
                   {instructors.slice(0, 4).map((ins) => (
                     <span key={ins.name} className="relative h-10 w-10 overflow-hidden rounded-full ring-2 ring-white">
@@ -81,40 +72,6 @@ export default function HomePage() {
                   </p>
                 </div>
               </div>
-            </Reveal>
-          </div>
-
-          {/* Hero photo collage */}
-          <Reveal delay={0.1} className="relative">
-            <div className="relative overflow-hidden rounded-3xl shadow-lift ring-1 ring-ink-200">
-              <Image
-                src={photos.instructorLesson}
-                alt="Smiling learner driver during an in-car lesson"
-                width={1200}
-                height={1300}
-                priority
-                className="kenburns h-[420px] w-full object-cover sm:h-[520px]"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-sign-900/50 to-transparent" />
-            </div>
-
-            {/* floating trust cards */}
-            <div className="absolute -left-4 bottom-8 hidden animate-float rounded-2xl bg-white p-4 shadow-lift ring-1 ring-ink-200 sm:block">
-              <div className="flex items-center gap-3">
-                <span className="grid h-11 w-11 place-items-center rounded-xl bg-sign-700 text-white">
-                  <Icon name="badge" className="h-6 w-6" />
-                </span>
-                <div>
-                  <p className="hud-num font-display text-lg font-extrabold text-ink-900">98%</p>
-                  <p className="text-xs text-ink-500">Would recommend</p>
-                </div>
-              </div>
-            </div>
-            <div className="absolute -right-3 top-8 hidden rounded-2xl bg-sign-700 px-4 py-3 text-white shadow-lift sm:block">
-              <p className="flex items-center gap-2 text-sm font-semibold">
-                <Icon name="check" className="h-4 w-4 text-road-300" />
-                Dual-brake cars
-              </p>
             </div>
           </Reveal>
         </div>

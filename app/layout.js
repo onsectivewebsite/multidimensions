@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import AIChat from "@/components/AIChat";
 import ScrollProgress from "@/components/ScrollProgress";
 import ThemeSwitcher from "@/components/ThemeSwitcher";
+import AnnouncementBar from "@/components/AnnouncementBar";
 import { business } from "@/lib/data";
 
 const bricolage = Bricolage_Grotesque({
@@ -67,6 +68,7 @@ export default function RootLayout({ children }) {
           Skip to content
         </a>
         <ScrollProgress />
+        <AnnouncementBar />
         <Navbar />
         <main id="main">{children}</main>
         <Footer />
